@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import Header from "./components/Header";
+import HomeScreen from "./screens/HomeScreen";
+import ArtistScreen from "./screens/ArtistScreen";
+import UserScreen from "./screens/UserScreen";
 
-import axios from "axios";
-
-function App() {
-  const [response, setResponse] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get("/api/test");
-      setResponse(data);
-    })();
-  }, []);
-
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <>
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route path="/" exact>
+            <HomeScreen />
+          </Route>
+          <Route path="/artist/:artistID" exact>
+            <ArtistScreen />
+          </Route>
+          <Route path="/user" exact>
+            <UserScreen />
+          </Route>
+        </Switch>
         <div>
-          Edit <code>src/App.js</code> and save to reload.
-          <div>Use /api/* routes to communicate with the server</div>
-          <div>{response}</div>
+          Links for test, remove later
+          <div>
+            <Link to="/">Home</Link>
+          </div>
+          <div>
+            <Link to="/artist/123">Artist with id 123</Link>
+          </div>
+          <div>
+            <Link to="/user">user</Link>
+          </div>
         </div>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      </BrowserRouter>
+    </>
   );
-}
+};
 
 export default App;
