@@ -4,10 +4,12 @@ import Header from "./components/Header";
 import HomeScreen from "./screens/HomeScreen";
 import ArtistScreen from "./screens/ArtistScreen";
 import UserScreen from "./screens/UserScreen";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { client } from "./services/apollo";
 
 const App = () => {
   return (
-    <>
+    <ApolloProvider client={client}>
       <BrowserRouter>
         <Header />
         <Switch>
@@ -34,7 +36,7 @@ const App = () => {
           </div>
         </div>
       </BrowserRouter>
-    </>
+    </ApolloProvider>
   );
 };
 

@@ -14,10 +14,11 @@ module.exports = app => {
     }
   );
 
-  app.get("/auth/logout", (req, res) => {
-    // function added by passport
-    req.logout();
-    res.redirect("/");
+  app.get("/auth/logout", async (req, res) => {
+    req.session.destroy(function(err) {
+      res.clearCookie("connect.sid");
+      res.redirect("/");
+    });
   });
 
   app.get("/api/current_user", (req, res) => {
